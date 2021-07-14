@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<ActivityLog.Models.ActivityModel>
 
 @{
-    ViewBag.Title = "ac";
+    ViewBag.Title = "Activity";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ac</h2>
+<h2>Nhật ký hoạt động</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,31 +13,32 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Log)
+            ID Tài khoản
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            Ngày giờ
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.dateTime)
+            Hành động
         </th>
-
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Log)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.dateTime)
             </td>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.Log)
+            </td>
+            <td>
+                @Html.ActionLink("Xoá hoạt động", "Delete", new { id = item.Id })
+            </td>
         </tr>
     }
-
 </table>

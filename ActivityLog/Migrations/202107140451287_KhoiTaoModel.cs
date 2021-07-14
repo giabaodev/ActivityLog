@@ -15,11 +15,8 @@ namespace ActivityLog.Migrations
                         Log = c.String(),
                         dateTime = c.DateTime(nullable: false),
                         UserId = c.Int(nullable: false),
-                        UserModel_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.UserModels", t => t.UserModel_Id)
-                .Index(t => t.UserModel_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Categories",
@@ -122,7 +119,10 @@ namespace ActivityLog.Migrations
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-            
+            Sql("INSERT INTO CATEGORIES (Name) VALUES ('World')");
+            Sql("INSERT INTO CATEGORIES (Name) VALUES ('Social')");
+            Sql("INSERT INTO CATEGORIES (Name) VALUES ('Technical')");
+
         }
         
         public override void Down()
@@ -130,7 +130,6 @@ namespace ActivityLog.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.ActivityModels", "UserModel_Id", "dbo.UserModels");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.NewsModels", "CategoryId", "dbo.Categories");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -140,7 +139,6 @@ namespace ActivityLog.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.NewsModels", new[] { "CategoryId" });
-            DropIndex("dbo.ActivityModels", new[] { "UserModel_Id" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");

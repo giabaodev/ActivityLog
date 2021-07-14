@@ -15,7 +15,6 @@ namespace ActivityLog.Controllers
 {
     public class NewsController : Controller
     {
-        private int userid;
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: News
         public ActionResult Index()
@@ -46,7 +45,8 @@ namespace ActivityLog.Controllers
                 write.UserId = checkUser.Id;
                 write.dateTime = DateTime.Now;
                 write.Log = writeactivity;
-                userid = checkUser.Id;
+                db.activityModels.Add(write);
+                db.SaveChanges();
                 return RedirectToAction("ManagePassword");
             }
             else
@@ -57,12 +57,15 @@ namespace ActivityLog.Controllers
         }
         public ActionResult LogOff()
         {
-            Session.Clear();
             ActivityModel write = new ActivityModel();
             string writeactivity = "Đã đăng xuất khỏi hệ thống";
+            int userid = (int)Session["Id"];
             write.UserId = userid;
             write.dateTime = DateTime.Now;
             write.Log = writeactivity;
+            db.activityModels.Add(write);
+            db.SaveChanges();
+            Session.Clear();
             return RedirectToAction("Login");
         }
         public ActionResult ManagePassword()
@@ -127,12 +130,14 @@ namespace ActivityLog.Controllers
             if (ModelState.IsValid)
             {
                 db.newsModels.Add(newsModel);
-                db.SaveChanges();
                 ActivityModel write = new ActivityModel();
                 string writeactivity = "Đã tạo mới một bài viết, id bài viết: "+newsModel.Id;
+                int userid = (int)Session["Id"];
                 write.UserId = userid;
                 write.dateTime = DateTime.Now;
                 write.Log = writeactivity;
+                db.activityModels.Add(write);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -170,12 +175,14 @@ namespace ActivityLog.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(newsModel).State = EntityState.Modified;
-                db.SaveChanges();
                 ActivityModel write = new ActivityModel();
                 string writeactivity = "Đã chỉnh sửa một bài viết, id bài viết: " + newsModel.Id;
+                int userid = (int)Session["Id"];
                 write.UserId = userid;
                 write.dateTime = DateTime.Now;
                 write.Log = writeactivity;
+                db.activityModels.Add(write);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryId = new SelectList(db.categories, "Id", "Name", newsModel.CategoryId);
@@ -208,12 +215,14 @@ namespace ActivityLog.Controllers
         {
             NewsModel newsModel = db.newsModels.Find(id);
             db.newsModels.Remove(newsModel);
-            db.SaveChanges();
             ActivityModel write = new ActivityModel();
             string writeactivity = "Đã xoá một bài viết, id bài viết: " + newsModel.Id;
+            int userid = (int)Session["Id"];
             write.UserId = userid;
             write.dateTime = DateTime.Now;
             write.Log = writeactivity;
+            db.activityModels.Add(write);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
