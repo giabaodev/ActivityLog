@@ -130,6 +130,7 @@ namespace ActivityLog.Controllers
             if (ModelState.IsValid)
             {
                 db.newsModels.Add(newsModel);
+                db.SaveChanges();
                 ActivityModel write = new ActivityModel();
                 string writeactivity = "Đã tạo mới một bài viết, id bài viết: "+newsModel.Id;
                 int userid = (int)Session["Id"];
