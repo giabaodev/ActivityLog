@@ -47,7 +47,7 @@ namespace ActivityLog.Controllers
                 write.Log = writeactivity;
                 db.activityModels.Add(write);
                 db.SaveChanges();
-                return RedirectToAction("ManagePassword");
+                return RedirectToAction("ManageAccount");
             }
             else
             {
@@ -68,8 +68,47 @@ namespace ActivityLog.Controllers
             Session.Clear();
             return RedirectToAction("Login");
         }
-        public ActionResult ManagePassword()
+        public ActionResult ManageAccount()
         {
+            if (Session["Id"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
+        public ActionResult ManagePassword(int? id)
+        {
+            if (Session["Id"] != null)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                UserModel userModel = db.userModels.Find(id);
+                if (userModel == null)
+                {
+                    return HttpNotFound();
+                }
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
+        [HttpPost]
+        public ActionResult ManagePassword([Bind(Include = "Password,Confirm")] UserModel userModel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(userModel).State = EntityState.Modified;
+                ActivityModel write = new ActivityModel();
+                string writeactivity = "Đã thay đổi mật khẩu";
+                int userid = (int)Session["Id"];
+                write.UserId = userid;
+                write.dateTime = DateTime.Now;
+                write.Log = writeactivity;
+                db.activityModels.Add(write);
+                db.SaveChanges();
+                return RedirectToAction("ManageAccount");
+            }
             return View();
         }
         public ActionResult ChangedPassword()

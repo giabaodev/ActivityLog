@@ -28,7 +28,7 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            @Html.ActionLink("Hello " + @Session["Username"] + "!", "ManagePassword", "News", routeValues: null, htmlAttributes: new { title = "Manage" })
+                            @Html.ActionLink("Hello " + @Session["Username"] + "!", "ManageAccount", "News", routeValues: null, htmlAttributes: new { title = "Manage" })
                         </li>
                         <li>@Html.ActionLink("LogOff", "LogOff","News")</li>
                     </ul>

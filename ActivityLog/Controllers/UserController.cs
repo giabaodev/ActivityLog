@@ -52,8 +52,8 @@ namespace ActivityLog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Username,Password,Confirm,Hoten")] UserModel userModel)
         {
-            var check = db.Users.SingleOrDefault(u => u.UserName == userModel.Username);
-            if (check == null)
+            var checkUsername = db.userModels.SingleOrDefault(u => u.Username == userModel.Username);
+            if (checkUsername == null)
             {
                 userModel.Password = GetSHA256(userModel.Password);
                 userModel.Confirm = GetSHA256(userModel.Confirm);
