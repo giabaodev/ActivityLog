@@ -1,11 +1,18 @@
-﻿@model IEnumerable<ActivityLog.Models.ActivityModel>
-
+﻿@model PagedList.IPagedList<ActivityLog.Models.ActivityModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Activity";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Nhật ký hoạt động</h2>
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <p>
+        Tìm kiếm: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Tìm kiếm" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -38,3 +45,14 @@
         </tr>
     }
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of
+@Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+new
+{
+    page,
+    sortOrder = ViewBag.CurrentSort,
+    currentFilter =
+ViewBag.CurrentFilter
+}))

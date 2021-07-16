@@ -17,11 +17,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("ADMIN", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Quản lý hoạt động", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("User Management", "Index", "User")</li>
+                    <li>@Html.ActionLink("Danh sách người dùng", "Index", "User")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -31,7 +31,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; Nguyễn Gia Bảo - My Activity Website</p>
         </footer>
     </div>
 

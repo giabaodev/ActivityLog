@@ -20,5 +20,7 @@ namespace ActivityLog.Models
         public string Confirm { get; set; }
         [Required]
         public string Hoten { get; set; }
+        public bool Theodoi { get; set; }
+
     }
 }
