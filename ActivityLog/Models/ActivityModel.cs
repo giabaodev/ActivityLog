@@ -15,6 +15,5 @@ namespace ActivityLog.Models
         public virtual int UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual UserModel UserModels { get; set; }
-        public bool Active { get; set; }
     }
 }

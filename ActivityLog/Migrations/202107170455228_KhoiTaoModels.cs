@@ -15,7 +15,6 @@ namespace ActivityLog.Migrations
                         Log = c.String(),
                         dateTime = c.DateTime(nullable: false),
                         UserId = c.Int(nullable: false),
-                        Active = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.UserModels", t => t.UserId, cascadeDelete: true)
@@ -131,9 +130,8 @@ namespace ActivityLog.Migrations
             Sql("INSERT INTO CATEGORIES (Name) VALUES ('Health')");
             Sql("INSERT INTO CATEGORIES (Name) VALUES ('World')");
             Sql("INSERT INTO CATEGORIES (Name) VALUES ('Bussiness')");
-
         }
-
+        
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");

@@ -13,7 +13,7 @@ namespace ActivityLog.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202107170351274_KhoiTaoModels"; }
+            get { return "202107170455228_KhoiTaoModels"; }
         }
         
         string IMigrationMetadata.Source

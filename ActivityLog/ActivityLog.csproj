@@ -188,9 +188,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202107170351274_KhoiTaoModels.cs" />
-    <Compile Include="Migrations\202107170351274_KhoiTaoModels.Designer.cs">
-      <DependentUpon>202107170351274_KhoiTaoModels.cs</DependentUpon>
+    <Compile Include="Migrations\202107170455228_KhoiTaoModels.cs" />
+    <Compile Include="Migrations\202107170455228_KhoiTaoModels.Designer.cs">
+      <DependentUpon>202107170455228_KhoiTaoModels.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -290,8 +290,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202107170351274_KhoiTaoModels.resx">
-      <DependentUpon>202107170351274_KhoiTaoModels.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202107170455228_KhoiTaoModels.resx">
+      <DependentUpon>202107170455228_KhoiTaoModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
