@@ -16,16 +16,7 @@ namespace ActivityLog.Controllers
     public class NewsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: News
-        public bool active;
-        public void Active(byte id)
-        {
-            if(id == 1)
-            {
-                active = false;
-            }
-            active = true;
-        }
+        // GET: News          
         public ActionResult Index()
         {
             if (Session["Id"] != null)
@@ -51,15 +42,18 @@ namespace ActivityLog.Controllers
                 Session["Username"] = checkUser.Username;
                 int id = (int)Session["Id"];
                 var users = db.userModels.Find(id);
-                if (users.Theodoi == true)
+                if (Session["Auditing"] != null)
                 {
-                    ActivityModel write = new ActivityModel();
-                    string writeactivity = "Đã đăng nhập vào hệ thống";
-                    write.UserId = checkUser.Id;
-                    write.dateTime = DateTime.Now;
-                    write.Log = writeactivity;
-                    db.activityModels.Add(write);
-                    db.SaveChanges();
+                    if (users.Theodoi == true)
+                    {
+                        ActivityModel write = new ActivityModel();
+                        string writeactivity = "Đã đăng nhập vào hệ thống";
+                        write.UserId = checkUser.Id;
+                        write.dateTime = DateTime.Now;
+                        write.Log = writeactivity;
+                        db.activityModels.Add(write);
+                        db.SaveChanges();
+                    }
                 }
                 return RedirectToAction("ManageAccount");
             }
@@ -73,17 +67,20 @@ namespace ActivityLog.Controllers
         {
             int id = (int)Session["Id"];
             var user = db.userModels.Find(id);
-            if (user.Theodoi == true)
+            if (Session["Auditing"] != null)
             {
-                ActivityModel write = new ActivityModel();
-                string writeactivity = "Đã đăng xuất khỏi hệ thống";
-                write.UserId = id;
-                write.dateTime = DateTime.Now;
-                write.Log = writeactivity;
-                db.activityModels.Add(write);
-                db.SaveChanges();
+                if (user.Theodoi == true)
+                {
+                    ActivityModel write = new ActivityModel();
+                    string writeactivity = "Đã đăng xuất khỏi hệ thống";
+                    write.UserId = id;
+                    write.dateTime = DateTime.Now;
+                    write.Log = writeactivity;
+                    db.activityModels.Add(write);
+                    db.SaveChanges();
+                }
             }
-            Session.Clear();
+            Session["Id"] = null;
             return RedirectToAction("Login");
         }
         public ActionResult ManageAccount()
@@ -117,7 +114,7 @@ namespace ActivityLog.Controllers
             if (ModelState.IsValid)
             {
                 GetSHA256(OldPassword);
-                if(OldPassword == userModel.Password)
+                if (OldPassword == userModel.Password)
                 {
                     db.Entry(userModel).State = EntityState.Modified;
                     ActivityModel write = new ActivityModel();
@@ -190,15 +187,18 @@ namespace ActivityLog.Controllers
                 db.SaveChanges();
                 int id = (int)Session["Id"];
                 var user = db.userModels.Find(id);
-                if (user.Theodoi == true)
+                if (Session["Auditing"] != null)
                 {
-                    ActivityModel write = new ActivityModel();
-                    string writeactivity = "Đã tạo mới một bài viết, id bài viết: " + newsModel.Id;
-                    write.UserId = id;
-                    write.dateTime = DateTime.Now;
-                    write.Log = writeactivity;
-                    db.activityModels.Add(write);
-                    db.SaveChanges();
+                    if (user.Theodoi == true)
+                    {
+                        ActivityModel write = new ActivityModel();
+                        string writeactivity = "Đã tạo mới một bài viết, id bài viết: " + newsModel.Id;
+                        write.UserId = id;
+                        write.dateTime = DateTime.Now;
+                        write.Log = writeactivity;
+                        db.activityModels.Add(write);
+                        db.SaveChanges();
+                    }
                 }
                 return RedirectToAction("Index");
             }
@@ -239,14 +239,17 @@ namespace ActivityLog.Controllers
                 db.Entry(newsModel).State = EntityState.Modified;
                 int id = (int)Session["Id"];
                 var user = db.userModels.Find(id);
-                if (user.Theodoi == true)
+                if (Session["Auditing"] != null)
                 {
-                    ActivityModel write = new ActivityModel();
-                    string writeactivity = "Đã chỉnh sửa một bài viết, id bài viết: " + newsModel.Id;
-                    write.UserId = id;
-                    write.dateTime = DateTime.Now;
-                    write.Log = writeactivity;
-                    db.activityModels.Add(write);
+                    if (user.Theodoi == true)
+                    {
+                        ActivityModel write = new ActivityModel();
+                        string writeactivity = "Đã chỉnh sửa một bài viết, id bài viết: " + newsModel.Id;
+                        write.UserId = id;
+                        write.dateTime = DateTime.Now;
+                        write.Log = writeactivity;
+                        db.activityModels.Add(write);
+                    }
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -283,14 +286,17 @@ namespace ActivityLog.Controllers
             db.newsModels.Remove(newsModel);
             int uid = (int)Session["Id"];
             var user = db.userModels.Find(uid);
-            if (user.Theodoi == true)
+            if (Session["Auditing"] != null)
             {
-                ActivityModel write = new ActivityModel();
-                string writeactivity = "Đã xoá một bài viết, id bài viết: " + newsModel.Id;
-                write.UserId = uid;
-                write.dateTime = DateTime.Now;
-                write.Log = writeactivity;
-                db.activityModels.Add(write);
+                if (user.Theodoi == true)
+                {
+                    ActivityModel write = new ActivityModel();
+                    string writeactivity = "Đã xoá một bài viết, id bài viết: " + newsModel.Id;
+                    write.UserId = uid;
+                    write.dateTime = DateTime.Now;
+                    write.Log = writeactivity;
+                    db.activityModels.Add(write);
+                }
             }
             db.SaveChanges();
             return RedirectToAction("Index");

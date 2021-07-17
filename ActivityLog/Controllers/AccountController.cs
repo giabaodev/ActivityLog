@@ -79,6 +79,7 @@ namespace ActivityLog.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["Auditing"] = true;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

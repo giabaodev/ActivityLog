@@ -11,6 +11,17 @@ namespace ActivityLog.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        int item;
+        public ActionResult ActiveAuditing()
+        {
+            Session["Auditing"] = true;
+            return RedirectToAction("Index");
+        }
+        public ActionResult CloseAuditing()
+        {
+            Session["Auditing"] = null;
+            return RedirectToAction("Index");
+        }
         [Authorize]
         [ActionName("Index")]
         public ActionResult ActivityList(string sortOrder, string searchString, string currentFilter, int? page)
