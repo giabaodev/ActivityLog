@@ -7,13 +7,13 @@ namespace ActivityLog.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdateModel : IMigrationMetadata
+    public sealed partial class KhoiTaoModels : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(KhoiTaoModels));
         
         string IMigrationMetadata.Id
         {
-            get { return "202107161356180_UpdateModel"; }
+            get { return "202107170351274_KhoiTaoModels"; }
         }
         
         string IMigrationMetadata.Source

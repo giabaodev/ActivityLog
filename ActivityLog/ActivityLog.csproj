@@ -61,12 +61,18 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -175,7 +181,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\api\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
@@ -183,17 +188,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202107140451287_KhoiTaoModel.cs" />
-    <Compile Include="Migrations\202107140451287_KhoiTaoModel.Designer.cs">
-      <DependentUpon>202107140451287_KhoiTaoModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202107161356180_UpdateModel.cs" />
-    <Compile Include="Migrations\202107161356180_UpdateModel.Designer.cs">
-      <DependentUpon>202107161356180_UpdateModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202107161406054_UpdateUserModel.cs" />
-    <Compile Include="Migrations\202107161406054_UpdateUserModel.Designer.cs">
-      <DependentUpon>202107161406054_UpdateUserModel.cs</DependentUpon>
+    <Compile Include="Migrations\202107170351274_KhoiTaoModels.cs" />
+    <Compile Include="Migrations\202107170351274_KhoiTaoModels.Designer.cs">
+      <DependentUpon>202107170351274_KhoiTaoModels.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -293,14 +290,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202107140451287_KhoiTaoModel.resx">
-      <DependentUpon>202107140451287_KhoiTaoModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202107161356180_UpdateModel.resx">
-      <DependentUpon>202107161356180_UpdateModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202107161406054_UpdateUserModel.resx">
-      <DependentUpon>202107161406054_UpdateUserModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202107170351274_KhoiTaoModels.resx">
+      <DependentUpon>202107170351274_KhoiTaoModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

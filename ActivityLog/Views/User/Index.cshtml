@@ -24,21 +24,35 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hoten)
-        </td>
-        <td>
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hoten)
+            </td>
+            <td>
+                @if (item.Theodoi)
+                {
+                    <button onclick="location.href='@Url.Action("UnFollow", "User", new { id = item.Id })'" class="btn btn-info btn-sm mr-4">
+                        Đang theo dõi
+                    </button>
+                }
+                else
+                {
+                    <button onclick="location.href='@Url.Action("Follow", "User", new { id = item.Id })'" class="btn btn-default btn-sm" style="margin-right: 5px;">
+                        Theo dõi
+                    </button>
+                }
+                <button onclick="location.href='@Url.Action("Delete", "Delete", new { id = item.Id })'" class="btn btn-default btn-sm">
+                    Xoá người dùng
+                </button>
+            </td>
+        </tr>
+    }
 </table>

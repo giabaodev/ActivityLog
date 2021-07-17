@@ -149,6 +149,20 @@ namespace ActivityLog.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }      
+        public ActionResult Follow(int id)
+        {
+            var user = db.userModels.Find(id);
+            user.Theodoi = true;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult UnFollow(int id)
+        {
+            var user = db.userModels.Find(id);
+            user.Theodoi = false;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
