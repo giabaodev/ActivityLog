@@ -6,25 +6,27 @@
 }
 
 <h2>Nhật ký hoạt động</h2>
-@using (Html.BeginForm("Index", "Home", FormMethod.Get))
-{
+<div>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
     <p>
-        Tìm kiếm: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Tìm kiếm" />
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @style = "border-radius: 10px; margin-top: 5px;" })
+        <button type="submit" style="font-size: 15px; border-radius: 15px;" ><i class="fa fa-search"></i></button>
     </p>
-}
-@if (Session["Auditing"] == null)
-{
-    <button onclick="location.href='@Url.Action("ActiveAuditing", "Home")'" class="btn btn-info btn-sm" style="display: inline; font-weight: 700; color: black">
-        Enable Auditing
-    </button>
-}
-else
-{
-    <button onclick="location.href='@Url.Action("CloseAuditing", "Home")'" class="btn btn-danger btn-sm" style="display: inline; font-weight: 700; color: black">
-        Close Auditing
-    </button>
-}
+    }
+    @if (Session["Auditing"] == null)
+    {
+        <button onclick="location.href='@Url.Action("ActiveAuditing", "Home")'" class="btn btn-info btn-sm" style="display: inline; font-weight: 700; color: black; float: right">
+            Enable Auditing
+        </button>
+    }
+    else
+    {
+        <button onclick="location.href='@Url.Action("CloseAuditing", "Home")'" class="btn btn-danger btn-sm" style="display: inline; font-weight: 700; color: black; float: right">
+            Close Auditing
+        </button>
+    }
+</div>
 <table class="table">
     <tr>
         <th>
