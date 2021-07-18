@@ -1,19 +1,20 @@
 ﻿
 @{
-    ViewBag.Title = "ManageAccount";
+    ViewBag.Title = "Quản lý tài khoản";
     Layout = "~/Views/UserLayout/UserLayout.cshtml";
 }
 
-<h2>ManageAccount</h2>
-<p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <p class="text-success">@ViewBag.StatusMessage</p>
-    <h4>Change your account settings</h4>
+    @if (ViewBag.thongbao != null)
+    {
+        <p class="text-success">@ViewBag.thongbao</p>
+    }
+    <h4>Thay đổi thông tin tài khoản</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>Password:</dt>
+        <dt>Mật khẩu:</dt>
         <dd>
-            [@Html.ActionLink("Change your password", "ManagePassword", new { id = (int)@Session["Id"] })]
+            [@Html.ActionLink("Đổi mật khẩu", "ManagePassword", new { id = (int)@Session["Id"] })]
         </dd>
     </dl>
 </div>

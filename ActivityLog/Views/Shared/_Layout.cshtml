@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Trang admin quản lý</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="border-color: #4cff00; background-color: #440101">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="border-color: #4cff00; background-color: #940000">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,7 +32,17 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; Nguyễn Gia Bảo - My Activity Website</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <p>&copy; Nguyễn Gia Bảo - My Activity Website</p>
+                </div>
+                <div class="col-md-4" style="text-align: center">
+                    <p>My Github - <a href="https://github.com/noffyns"><i class="fa fa-github" aria-hidden="true" style="color: black"></i></a></p>
+                </div>
+                <div class="col-md-4" style="text-align: right">
+                    <a href="https://www.facebook.com/noffyns" style="color: black">Liên hệ với tôi</a>
+                </div>
+            </div>
         </footer>
     </div>
 

@@ -109,24 +109,33 @@ namespace ActivityLog.Controllers
             return RedirectToAction("Login");
         }
         [HttpPost]
-        public ActionResult ManagePassword([Bind(Include = "Password,Confirm")] UserModel userModel, string OldPassword)
+        public ActionResult ManagePassword([Bind(Include = "Id,Username,Password,Confirm,Hoten")] UserModel userModel, string OldPassword)
         {
-            if (ModelState.IsValid)
+            var user = db.userModels.Find(userModel.Id);
+            if (GetSHA256(OldPassword) == user.Password)
             {
-                GetSHA256(OldPassword);
-                if (OldPassword == userModel.Password)
+                user.Password = GetSHA256(userModel.Password);
+                user.Confirm = GetSHA256(userModel.Confirm);
+                if (Session["Auditing"] != null)
                 {
-                    db.Entry(userModel).State = EntityState.Modified;
-                    ActivityModel write = new ActivityModel();
-                    string writeactivity = "Đã thay đổi mật khẩu";
-                    int userid = (int)Session["Id"];
-                    write.UserId = userid;
-                    write.dateTime = DateTime.Now;
-                    write.Log = writeactivity;
-                    db.activityModels.Add(write);
-                    db.SaveChanges();
-                    return RedirectToAction("ManageAccount");
+                    if (user.Theodoi == true)
+                    {
+                        ActivityModel write = new ActivityModel();
+                        string writeactivity = "Đã thay đổi mật khẩu";
+                        int userid = (int)Session["Id"];
+                        write.UserId = userid;
+                        write.dateTime = DateTime.Now;
+                        write.Log = writeactivity;
+                        db.activityModels.Add(write);
+                    }
                 }
+                db.SaveChanges();
+                ViewBag.thongbao = "Đổi mật khẩu thành công";
+                return RedirectToAction("ManageAccount");
+            }
+            else
+            {
+                ViewBag.error = "Mật khẩu cũ không đúng!";
             }
             return View();
         }

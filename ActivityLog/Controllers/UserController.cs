@@ -9,6 +9,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using ActivityLog.Models;
+using PagedList;
 
 namespace ActivityLog.Controllers
 {
@@ -18,9 +19,29 @@ namespace ActivityLog.Controllers
 
         // GET: User
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string currentFilter, int? page)
         {
-            return View(db.userModels.ToList());
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            var user = from s in db.userModels
+                           select s;
+            ViewBag.CurrentFilter = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                user = user.Where(s =>
+                s.Hoten.ToUpper().Contains(searchString.ToUpper()) || s.Username.ToUpper().Contains(searchString.ToUpper())
+                ||
+                s.Id.ToString().Contains(searchString));
+            }
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            return View(user.OrderBy(s => s.Id).ToPagedList(pageNumber, pageSize));
         }
         [Authorize]
         // GET: User/Details/5
@@ -64,7 +85,7 @@ namespace ActivityLog.Controllers
             }
             else
             {
-                ViewBag.error = "Username already exists";
+                ViewBag.error = "Tên tài khoản đã tồn tại!";
             }
             return View(userModel);
         }

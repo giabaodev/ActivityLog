@@ -1,7 +1,7 @@
-﻿@model IEnumerable<ActivityLog.Models.UserModel>
-
+﻿@model PagedList.IPagedList<ActivityLog.Models.UserModel>
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "UserManagement";
+    ViewBag.Title = "Danh sách người dùng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,16 +10,23 @@
 <p>
     @Html.ActionLink("Thêm người dùng", "Create")
 </p>
+@using (Html.BeginForm("Index", "User", FormMethod.Get))
+{
+    <p>
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @style = "border-radius: 10px; margin-top: 5px;" })
+        <button type="submit" style="font-size: 15px; border-radius: 15px;"><i class="fa fa-search"></i></button>
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Username)
+            Họ tên
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Password)
+            Username
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Hoten)
+            Mật khẩu đã mã hoá
         </th>
         <th></th>
     </tr>
@@ -28,13 +35,13 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Hoten)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hoten)
             </td>
             <td>
                 @if (item.Theodoi)
@@ -56,3 +63,14 @@
         </tr>
     }
 </table>
+<br />
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên
+@Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+new
+{
+    page,
+    sortOrder = ViewBag.CurrentSort,
+    currentFilter =
+ViewBag.CurrentFilter
+}))

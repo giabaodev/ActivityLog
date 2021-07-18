@@ -3,13 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #00542a">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,7 +31,7 @@
                         <li>
                             @Html.ActionLink("Hello " + @Session["Username"] + "!", "ManageAccount", "News", routeValues: null, htmlAttributes: new { title = "Manage" })
                         </li>
-                        <li>@Html.ActionLink("LogOff", "LogOff","News")</li>
+                        <li>@Html.ActionLink("LogOff", "LogOff", "News")</li>
                     </ul>
                 }
                 else
@@ -46,7 +47,17 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <p>&copy; Nguyễn Gia Bảo - My Activity Website</p>
+                </div>
+                <div class="col-md-4" style="text-align: center">
+                    <p>My Github - <a href="https://github.com/noffyns"><i class="fa fa-github" aria-hidden="true" style="color: black"></i></a></p>
+                </div>
+                <div class="col-md-4" style="text-align: right">
+                    <a href="https://www.facebook.com/noffyns" style="color: black">Liên hệ với tôi</a>
+                </div>
+            </div>
         </footer>
     </div>
 

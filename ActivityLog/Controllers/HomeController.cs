@@ -11,7 +11,6 @@ namespace ActivityLog.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        int item;
         public ActionResult ActiveAuditing()
         {
             Session["Auditing"] = true;
@@ -24,7 +23,7 @@ namespace ActivityLog.Controllers
         }
         [Authorize]
         [ActionName("Index")]
-        public ActionResult ActivityList(string sortOrder, string searchString, string currentFilter, int? page)
+        public ActionResult ActivityList(string searchString, string currentFilter, int? page)
         {
             if (searchString != null)
             {
