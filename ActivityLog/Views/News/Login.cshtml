@@ -5,6 +5,10 @@
 }
 
 <h2>Đăng nhập</h2>
+@if (ViewBag.loi != null)
+{
+    <strong style="color: red">@ViewBag.loi</strong>
+}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

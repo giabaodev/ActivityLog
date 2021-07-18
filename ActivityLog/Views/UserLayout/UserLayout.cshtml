@@ -26,7 +26,6 @@
                 </ul>
                 @if (@Session["Id"] != null)
                 {
-
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             @Html.ActionLink("Hello " + @Session["Username"] + "!", "ManageAccount", "News", routeValues: null, htmlAttributes: new { title = "Manage" })
@@ -49,13 +48,13 @@
         <footer>
             <div class="row">
                 <div class="col-md-4">
-                    <p>&copy; Nguyễn Gia Bảo - My Activity Website</p>
+                    <p>&copy; Nguyễn Gia Bảo - Hồ Minh Trung <br />—— Our Activity Log Website ——</p>
                 </div>
                 <div class="col-md-4" style="text-align: center">
                     <p>My Github - <a href="https://github.com/noffyns"><i class="fa fa-github" aria-hidden="true" style="color: black"></i></a></p>
                 </div>
                 <div class="col-md-4" style="text-align: right">
-                    <a href="https://www.facebook.com/noffyns" style="color: black">Liên hệ với tôi</a>
+                    <a href="https://www.facebook.com/noffyns" style="color: black">Liên hệ với chúng tôi</a>
                 </div>
             </div>
         </footer>

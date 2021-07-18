@@ -1,15 +1,15 @@
 ﻿@model ActivityLog.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Use another service to log in.</h4>
+<h4 style="font-weight: 700";>Trang quản lý hoạt động người dùng</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0) {
         <div>
             <p>
-                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support logging in via external services.
+                Ghi lại quá trình hoạt động của người dùng. Trang web chỉ có thể đăng nhập bằng tài khoản ADMIN, 
+                không thể đăng nhập bằng tài khoản người dùng và ngược lại.
             </p>
         </div>
     }

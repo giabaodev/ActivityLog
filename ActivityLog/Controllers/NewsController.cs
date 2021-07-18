@@ -19,11 +19,13 @@ namespace ActivityLog.Controllers
         // GET: News          
         public ActionResult Index()
         {
-            if (Session["Id"] != null)
+            if (Session["Id"] != null && db.userModels.Find((int)Session["Id"]) != null)
             {
                 var newsModels = db.newsModels.Include(n => n.category);
                 return View(newsModels.ToList());
             }
+            Session["Id"] = null;
+            Session["Username"] = null;
             return RedirectToAction("Login");
         }
         public ActionResult Login()
@@ -39,7 +41,7 @@ namespace ActivityLog.Controllers
             if (checkUser != null)
             {
                 Session["Id"] = checkUser.Id;
-                Session["Username"] = checkUser.Username;
+                Session["Username"] = checkUser.Hoten;
                 int id = (int)Session["Id"];
                 var users = db.userModels.Find(id);
                 if (Session["Auditing"] != null)
@@ -59,7 +61,7 @@ namespace ActivityLog.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Username or password does not exists");
+                ModelState.AddModelError("", "Sai thông tin đăng nhập hoặc người dùng đã bị xoá.");
             }
             return View();
         }
@@ -67,33 +69,45 @@ namespace ActivityLog.Controllers
         {
             int id = (int)Session["Id"];
             var user = db.userModels.Find(id);
-            if (Session["Auditing"] != null)
+            if (user != null)
             {
-                if (user.Theodoi == true)
+                if (Session["Auditing"] != null)
                 {
-                    ActivityModel write = new ActivityModel();
-                    string writeactivity = "Đã đăng xuất khỏi hệ thống";
-                    write.UserId = id;
-                    write.dateTime = DateTime.Now;
-                    write.Log = writeactivity;
-                    db.activityModels.Add(write);
-                    db.SaveChanges();
+                    if (user.Theodoi == true)
+                    {
+                        ActivityModel write = new ActivityModel();
+                        string writeactivity = "Đã đăng xuất khỏi hệ thống";
+                        write.UserId = id;
+                        write.dateTime = DateTime.Now;
+                        write.Log = writeactivity;
+                        db.activityModels.Add(write);
+                        db.SaveChanges();
+                    }
                 }
+                Session["Id"] = null;
+                return RedirectToAction("Login");
             }
-            Session["Id"] = null;
-            return RedirectToAction("Login");
+            else
+            {
+                Session["Id"] = null;
+                Session["Username"] = null;
+                return RedirectToAction("Login");
+            }
         }
         public ActionResult ManageAccount()
         {
-            if (Session["Id"] != null)
+            if (Session["Id"] != null && db.userModels.Find((int)Session["Id"]) != null)
             {
-                return View();
+                UserModel userModel = db.userModels.Find(Session["Id"]);
+                return View(userModel);
             }
+            Session["Id"] = null;
+            Session["Username"] = null;
             return RedirectToAction("Login");
         }
         public ActionResult ManagePassword(int? id)
         {
-            if (Session["Id"] != null)
+            if (Session["Id"] != null && db.userModels.Find((int)Session["Id"]) != null)
             {
                 if (id == null)
                 {
@@ -106,6 +120,8 @@ namespace ActivityLog.Controllers
                 }
                 return View();
             }
+            Session["Id"] = null;
+            Session["Username"] = null;
             return RedirectToAction("Login");
         }
         [HttpPost]
@@ -156,7 +172,7 @@ namespace ActivityLog.Controllers
         // GET: News/Details/5
         public ActionResult Details(int? id)
         {
-            if (Session["Id"] != null)
+            if (Session["Id"] != null && db.userModels.Find((int)Session["Id"]) != null)
             {
                 if (id == null)
                 {
@@ -169,17 +185,21 @@ namespace ActivityLog.Controllers
                 }
                 return View(newsModel);
             }
+            Session["Id"] = null;
+            Session["Username"] = null;
             return RedirectToAction("Login");
         }
 
         // GET: News/Create
         public ActionResult Create()
         {
-            if (Session["Id"] != null)
+            if (Session["Id"] != null && db.userModels.Find((int)Session["Id"]) != null)
             {
                 ViewBag.CategoryId = new SelectList(db.categories, "Id", "Name");
                 return View();
             }
+            Session["Id"] = null;
+            Session["Username"] = null;
             return RedirectToAction("Login");
         }
 
@@ -219,7 +239,7 @@ namespace ActivityLog.Controllers
         // GET: News/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (Session["Id"] != null)
+            if (Session["Id"] != null && db.userModels.Find((int)Session["Id"]) != null)
             {
                 if (id == null)
                 {
@@ -233,6 +253,8 @@ namespace ActivityLog.Controllers
                 ViewBag.CategoryId = new SelectList(db.categories, "Id", "Name", newsModel.CategoryId);
                 return View(newsModel);
             }
+            Session["Id"] = null;
+            Session["Username"] = null;
             return RedirectToAction("Login");
         }
 
@@ -270,7 +292,7 @@ namespace ActivityLog.Controllers
         // GET: News/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (Session["Id"] != null)
+            if (Session["Id"] != null && db.userModels.Find((int)Session["Id"]) != null)
             {
                 if (id == null)
                 {
@@ -283,6 +305,8 @@ namespace ActivityLog.Controllers
                 }
                 return View(newsModel);
             }
+            Session["Id"] = null;
+            Session["Username"] = null;
             return RedirectToAction("Login");
         }
 

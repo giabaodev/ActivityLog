@@ -1,4 +1,4 @@
-﻿
+﻿@model ActivityLog.Models.UserModel
 @{
     ViewBag.Title = "Quản lý tài khoản";
     Layout = "~/Views/UserLayout/UserLayout.cshtml";
@@ -12,6 +12,14 @@
     <h4>Thay đổi thông tin tài khoản</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>Họ tên: </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hoten)
+        </dd>
+        <dt>Tên tài khoản: </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
         <dt>Mật khẩu:</dt>
         <dd>
             [@Html.ActionLink("Đổi mật khẩu", "ManagePassword", new { id = (int)@Session["Id"] })]
