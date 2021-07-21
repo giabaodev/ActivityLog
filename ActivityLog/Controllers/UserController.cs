@@ -129,6 +129,8 @@ namespace ActivityLog.Controllers
         {
             if (ModelState.IsValid)
             {
+                userModel.Password = GetSHA256(userModel.Password);
+                userModel.Confirm = GetSHA256(userModel.Confirm);
                 db.Entry(userModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

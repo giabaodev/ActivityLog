@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ActivityLog.Models;
+using PagedList;
 
 namespace ActivityLog.Controllers
 {
@@ -17,12 +18,37 @@ namespace ActivityLog.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: News          
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string currentFilter, int? page)
         {
             if (Session["Id"] != null && db.userModels.Find((int)Session["Id"]) != null)
             {
-                var newsModels = db.newsModels.Include(n => n.category);
-                return View(newsModels.ToList());
+                if (searchString != null)
+                {
+                    page = 1;
+                }
+                else
+                {
+                    searchString = currentFilter;
+                }
+                var newsModels = from s in db.newsModels
+                               select s;
+                ViewBag.CurrentFilter = searchString;
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    newsModels = newsModels.Where(s =>
+                    s.Title.ToUpper().Contains(searchString.ToUpper())
+                    ||
+                    s.Noidung.ToUpper().Contains(searchString.ToUpper())
+                    ||
+                    s.category.Name.ToUpper().Contains(searchString.ToUpper())
+                    ||
+                    s.CategoryId.ToString().Contains(searchString));
+                }
+                int pageSize = 5;
+                int pageNumber = (page ?? 1);
+                //var newsModels = db.newsModels.Include(n => n.category);
+                return View(newsModels.OrderByDescending(s => s.Id).Include(n => n.category).ToPagedList(pageNumber, pageSize));
+                //return View(newsModels.ToList());
             }
             Session["Id"] = null;
             Session["Username"] = null;

@@ -20,6 +20,9 @@
 <table class="table">
     <tr>
         <th>
+            ID
+        </th>
+        <th>
             Họ tên
         </th>
         <th>
@@ -33,12 +36,16 @@
 
     @foreach (var item in Model)
     {
+
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Hoten)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Username)
+                @Html.ActionLink(item.Username, "Edit", new { id = item.Id }, new { @style = "color: black" })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Password)

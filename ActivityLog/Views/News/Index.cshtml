@@ -1,14 +1,20 @@
-﻿@model IEnumerable<ActivityLog.Models.NewsModel>
-
+﻿@model PagedList.IPagedList<ActivityLog.Models.NewsModel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Quản lý bài viết";
     Layout = "~/Views/UserLayout/UserLayout.cshtml";
 }
 <h2>Danh sách bài viết</h2>
-
 <p>
     @Html.ActionLink("Tạo một bài viết", "Create")
 </p>
+@using (Html.BeginForm("Index", "News", FormMethod.Get))
+{
+    <p>
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @style = "border-radius: 10px; margin-top: 5px;" })
+        <button type="submit" style="font-size: 15px; border-radius: 15px;"><i class="fa fa-search"></i></button>
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -36,11 +42,22 @@
                 @Html.DisplayFor(modelItem => item.Noidung)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Xoá", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
 
 </table>
+<br />
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên
+@Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+new
+{
+    page,
+    sortOrder = ViewBag.CurrentSort,
+    currentFilter =
+ViewBag.CurrentFilter
+}))

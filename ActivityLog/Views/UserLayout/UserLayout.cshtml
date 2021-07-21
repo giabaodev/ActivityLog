@@ -28,15 +28,15 @@
                 {
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            @Html.ActionLink("Hello " + @Session["Username"] + "!", "ManageAccount", "News", routeValues: null, htmlAttributes: new { title = "Manage" })
+                            @Html.ActionLink("Xin chào " + @Session["Username"], "ManageAccount", "News", routeValues: null, htmlAttributes: new { title = "Manage" })
                         </li>
-                        <li>@Html.ActionLink("LogOff", "LogOff", "News")</li>
+                        <li>@Html.ActionLink("Thoát", "LogOff", "News")</li>
                     </ul>
                 }
                 else
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Log in", "Login", "News", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        <li>@Html.ActionLink("Đăng nhập", "Login", "News", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
                     </ul>
                 }
             </div>
